@@ -1,13 +1,24 @@
-import React, { useState, useRef } from 'react';
+import React, { useState, useRef, useEffect } from 'react';
 import Todolist from './Todolist';
-import uuidv4 from 'uuid/v4';
+import { v4 as uuidv4 } from 'uuid';
+
+const LOCAL_STORAGE_KEY = 'todos';
 
 function App() {
 
   const [todos, setTodos] = useState([]);
   const todonameref = useRef();
 
-  function handleaddtodo(e){
+  useEffect(() => {
+    const storedTodos = JSON.parse(localStorage.getItem(LOCAL_STORAGE_KEY));
+    if (storedTodos) { setTodos(storedTodos); }
+  }, []);
+
+  useEffect(() => {
+    localStorage.setItem(LOCAL_STORAGE_KEY, JSON.stringify(todos));
+  }, [todos]);
+
+  function handleaddtodo(e) {
 
     const name = todonameref.current.value;
 
@@ -26,14 +37,16 @@ function App() {
 
   }
 
-
+  function handlecleartodo() {
+    setTodos([]);
+  }
 
   return (
     <>
       <Todolist todos={todos} />
-      <input ref={ todonameref } type="text" />
+      <input ref={todonameref} type="text" />
       <button onClick={handleaddtodo} >Add</button>
-      <button>clear</button>
+      <button onClick={handlecleartodo}>clear</button>
     </>
   );
 }
