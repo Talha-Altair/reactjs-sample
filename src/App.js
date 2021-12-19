@@ -1,8 +1,8 @@
-import './App.css';
+import Todolist from './Todolist';
 
 function App() {
   return (
-    <h2>Hello World</h2>
+    <Todolist />
   );
 }
 
