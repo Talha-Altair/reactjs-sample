@@ -2,7 +2,12 @@ import Todolist from './Todolist';
 
 function App() {
   return (
-    <Todolist />
+    <>
+      <Todolist />
+      <input type="text" />
+      <button>Add</button>
+      <button>clear</button>
+    </>
   );
 }
 
