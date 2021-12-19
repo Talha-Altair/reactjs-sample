@@ -41,12 +41,22 @@ function App() {
     setTodos([]);
   }
 
+  function toggletodo(id) {
+
+    const newTodos = [...todos];
+    const todo = newTodos.find(todo => todo.id === id);
+    todo.completed = !todo.completed;
+    setTodos(newTodos);
+
+  }
+
   return (
     <>
-      <Todolist todos={todos} />
+      <Todolist todos={todos} toggletodo={toggletodo}/>
       <input ref={todonameref} type="text" />
       <button onClick={handleaddtodo} >Add</button>
       <button onClick={handlecleartodo}>clear</button>
+      <p> {todos.filter(todo => !todo.completed).length} left to do</p>
     </>
   );
 }
